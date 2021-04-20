@@ -174,7 +174,7 @@ class MainWindow:
         pass
 
     # Backend and Gui code for generator will be written here
-        def generator_output(self):
+    def generator_output(self):
 
         power_factor_angle = math.acos(self.input_param_5)
 
