@@ -174,8 +174,31 @@ class MainWindow:
         pass
 
     # Backend and Gui code for generator will be written here
-    def generator_output(self):
-        pass
+        def generator_output(self):
+
+        power_factor_angle = math.acos(self.input_param_5)
+
+        internal_power_angle = math.atan(((self.input_param_1 * math.sin(power_factor_angle)) + (self.input_param_6 * self.input_param_3))/
+                                         ((self.input_param_1 * math.cos(power_factor_angle)) + (self.input_param_6 * self.input_param_4)))
+
+        power_angle = power_factor_angle - internal_power_angle
+        current_power_factor = math.cos(power_angle)
+
+        Ef_ = ((((self.input_param_1 * math.sin(power_factor_angle)) + (self.input_param_6 * self.input_param_3))**2) +
+        (((self.input_param_1 * math.cos(power_factor_angle)) + (self.input_param_6 * self.input_param_4))**2))**(0.5)
+
+        Id = self.input_param_6 * math.sin(internal_power_angle)
+
+        Ef = Ef_ - Id(self.input_param_2 - self.input_param_3)
+
+        k = Ef/4*self.input_param_1*self.input_param_2
+        m = (1/self.input_param_3) - (1/self.input_param_2)
+
+        maxm_angle = math.acos((-k + (k**2 + 0.5*(m**2))**(0.5)) / m)
+
+        maxm_reluctance_power = (((self.input_param_1) ** 2) / 2) * m
+        maxm_power_output = ((Ef*self.input_param_1)/self.input_param_2)*math.sin(maxm_angle) + (maxm_reluctance_power)*math.sin(2 * maxm_angle)
+
 
     def window_two(self):
         self.clean_window(self.root)
